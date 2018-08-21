@@ -1,0 +1,10 @@
+{
+  "name": "pomo-doist-ngrx",
+  "files": [
+   "package.json",
+   "yarn.lock",
+   "dist"
+  ]
+ }
+
+
