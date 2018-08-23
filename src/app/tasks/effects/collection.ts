@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Database } from '@ngrx/db';
+import { PomodoistService } from '../../core/services/pomodoist';
 import { Observable } from 'rxjs/Observable';
 import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
@@ -37,10 +38,10 @@ export class CollectionEffects {
   loadCollection$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionActionTypes.Load),
     switchMap(() =>
-      this.db
-        .query('tasks')
+      this.pomodo
+        .getAllTasks()
         .pipe(
-          toArray(),
+          // toArray(),
           map((tasks: Task[]) => new LoadSuccess(tasks)),
           catchError(error => of(new LoadFail(error)))
         )
@@ -52,8 +53,8 @@ export class CollectionEffects {
     ofType(CollectionActionTypes.AddTask),
     map((action: AddTask) => action.payload),
     mergeMap(task =>
-      this.db
-        .insert('tasks', [task])
+      this.pomodo
+        .addTask(task)
         .pipe(
           map(() => new AddTaskSuccess(task)),
           catchError(() => of(new AddTaskFail(task)))
@@ -75,6 +76,6 @@ export class CollectionEffects {
     )
   );
 
-  constructor(private actions$: Actions, private db: Database) {}
+  constructor(private actions$: Actions, private db: Database, private pomodo: PomodoistService) {}
 }
 

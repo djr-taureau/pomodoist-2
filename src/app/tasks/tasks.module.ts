@@ -8,6 +8,7 @@ import { ComponentsModule } from './components';
 import { TaskEffects } from './effects/task';
 import { PomoEffects } from './effects/pomo';
 import { CollectionEffects } from './effects/collection';
+import { PomodoistService } from '../core/services/pomodoist';
 import { TaskExistsGuard } from './guards/task-exists';
 import { FindTaskPageComponent } from './containers/find-task-page';
 import { ViewTaskPageComponent } from './containers/view-task-page';
@@ -50,6 +51,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     PomoDialogComponent,
     SelectedTaskPageComponent
   ],
-  providers: [TaskExistsGuard, DatePipe],
+  providers: [PomodoistService, TaskExistsGuard, DatePipe],
 })
 export class TasksModule {}
