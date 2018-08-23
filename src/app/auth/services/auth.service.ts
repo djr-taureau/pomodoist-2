@@ -29,18 +29,6 @@ export class AuthService {
     // this.configureWithNewConfigApi();
   }
 
-  // private configureWithNewConfigApi() {
-  //   this.oauthService.configure(authConfig);
-
-  //   this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-  //   // this.oauthService.initImplicitFlow('http://localhost/tasks');
-  //   // this.oauthService.tryLogin({
-  //   //   onTokenReceived: (info) => {
-  //   //     console.log('state', info.state);
-  //   //   }
-  //   // });
-  //   this.oauthService.loadDiscoveryDocumentAndTryLogin();
-  // }
 
   login({ username, password }: Authenticate): Observable<User> {
     /**

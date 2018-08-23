@@ -1,4 +1,4 @@
-
+import { PomodoistService } from '../../core/services/pomodoist';
 import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -45,10 +45,10 @@ export class PomoEffects {
   loadPomos$: Observable<Action> = this.actions$.pipe(
     ofType(CollectionActionTypes.LoadPomos),
     switchMap(() =>
-      this.db
-        .query('pomos')
+      this.pomodo
+        .getAllPomos()
         .pipe(
-          toArray(),
+          // toArray(),
           map((pomos: Pomo[]) => new LoadSuccess(pomos)),
           catchError(error => of(new LoadFail(error)))
         )
@@ -60,6 +60,7 @@ export class PomoEffects {
     private actions$: Actions,
     // private pomoService: PomoQueryService,
     private db: Database,
+    private pomodo: PomodoistService,
     @Optional()
     @Inject(SEARCH_DEBOUNCE)
     private debounce: number,

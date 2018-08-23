@@ -8,6 +8,7 @@ import { async } from 'rxjs/scheduler/async';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 import { TodoistTasksService } from '../../core/services/todoist-tasks';
+import { PomodoistService } from '../../core/services/pomodoist';
 import {
   TaskActionTypes,
   TaskActions,
@@ -85,8 +86,8 @@ export class TaskEffects {
     ofType(TaskActionTypes.AddPomo),
     map((action: AddPomo) => action.payload),
     mergeMap(pomo =>
-      this.db
-        .insert('pomos', [pomo])
+      this.pomodo
+        .addPomo(pomo)
         .pipe(
           map(() => new AddPomoSuccess(pomo)),
           catchError(() => of(new AddPomoFail(pomo)))
@@ -111,6 +112,7 @@ export class TaskEffects {
   constructor(
     private actions$: Actions,
     private todoistTaskService: TodoistTasksService,
+    private pomodo: PomodoistService,
     // private pomoService: PomoQueryService,
     private db: Database,
     @Optional()

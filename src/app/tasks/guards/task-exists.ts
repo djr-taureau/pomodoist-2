@@ -6,6 +6,7 @@ import { filter, take, map, tap, catchError, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
 import { TodoistTasksService } from '../../core/services/todoist-tasks';
+import { PomodoistService } from '../../core/services/pomodoist';
 import * as fromTasks from '../reducers';
 import * as task from '../actions/task';
 
